@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:slicing_ui_one/core.dart';
 import 'package:slicing_ui_one/core/theme/theme_config.dart';
+import 'package:slicing_ui_one/core/widget/button/button.dart';
 
 import '../controller/intro_controller.dart';
 
@@ -148,13 +149,12 @@ class IntroView extends StatefulWidget {
               const SizedBox(
                 height: 30.0,
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  foregroundColor: Colors.white,
+              Qbutton(
+                label: "Nexta",
+                onPressed: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginView()),
                 ),
-                onPressed: () {},
-                child: const Text("Next"),
               ),
             ],
           ),
