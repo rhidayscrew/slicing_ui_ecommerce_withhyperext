@@ -149,7 +149,7 @@ class IntroView extends StatefulWidget {
               const SizedBox(
                 height: 30.0,
               ),
-              Qbutton(
+              QButton(
                 label: "Nexta",
                 onPressed: () => Navigator.pushReplacement(
                   context,

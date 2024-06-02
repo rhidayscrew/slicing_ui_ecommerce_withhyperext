@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:slicing_ui_one/core/theme/theme_config.dart';
 
-class Qbutton extends StatelessWidget {
+class QButton extends StatelessWidget {
   final String label;
   final Function onPressed;
   final Color? color;
-  const Qbutton({
+  const QButton({
     super.key,
     required this.label,
     required this.onPressed,
