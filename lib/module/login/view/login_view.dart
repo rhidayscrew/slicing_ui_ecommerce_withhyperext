@@ -87,7 +87,8 @@ class LoginView extends StatefulWidget {
                 // add sh20
                 height: 20.0,
               ),
-              Qtextfield(
+
+              QTextfield(
                 label: "Password",
                 prefixIcon: Icons.add,
                 suffixIcon: Icons.visibility,
@@ -96,15 +97,41 @@ class LoginView extends StatefulWidget {
               const SizedBox(
                 height: 20.0,
               ),
-              Text(
-                "Forgot Password",
-                style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold, // add bold
-                    color: primaryColor),
+              QButton(
+                  label: "Login",
+                  onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MainNavigationView()),
+                      )),
+              const SizedBox(
+                height: 15.0,
+              ),
+              //add InkWell : alt +i agar bisa di klik untuk textfiel
+              InkWell(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ForgotPasswordView()),
+                ),
+                child: Text(
+                  "Forgot Password",
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: primaryColor),
+                ),
               ),
               const Spacer(),
-              QButton(label: "Sign Up", onPressed: () {}),
+              QButton(
+                  label: "Sign Up",
+                  color: disabledColor,
+                  textColor: disabledTextColor,
+                  onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterView()),
+                      )),
             ],
           ),
         ),

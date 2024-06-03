@@ -3,20 +3,20 @@
 import 'package:flutter/material.dart';
 import 'package:slicing_ui_one/core/theme/theme_config.dart';
 
-class Qtextfield extends StatelessWidget {
+class QTextfield extends StatelessWidget {
   final String label;
-  final IconData? prefixIcon;
-  final IconData? suffixIcon;
   final Function(String text)? onChanged;
   final Function(String text)? onSubmitted;
+  final IconData? prefixIcon;
+  final IconData? suffixIcon;
 
-  const Qtextfield({
+  const QTextfield({
     super.key,
     required this.label,
+    this.onSubmitted,
+    this.onChanged,
     this.prefixIcon,
     this.suffixIcon,
-    this.onChanged,
-    this.onSubmitted,
   });
 
   @override

@@ -5,7 +5,10 @@
         "login",
         "register",
         "forgot_password",
-        "change_password"
+        "change_password",
+        "dashboard",
+        "main_navigation",
+        "profile"
     ],
     "module_directory_name": "module",
     "experimental_mode": false,
