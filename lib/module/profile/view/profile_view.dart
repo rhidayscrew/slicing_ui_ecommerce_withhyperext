@@ -14,22 +14,59 @@ class ProfileView extends StatefulWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
+          width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              // list_tile_row
-              ListTile(
-                title: const Text("Change Password"),
-                trailing: const Icon(
-                  Icons.chevron_right,
-                  size: 24.0,
-                ),
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChangePasswordView()),
+              //1 add circrl_image
+              const CircleAvatar(
+                radius: 64.0,
+                backgroundImage: NetworkImage(
+                  "https://res.cloudinary.com/dotz74j1p/raw/upload/v1716044979/nr7gt66alfhmu9vaxu2u.png",
                 ),
               ),
+              const SizedBox(
+                height: 14.0,
+              ),
+              const Text(
+                "Screw",
+                style: TextStyle(
+                  fontSize: 20.0,
+                ),
+              ),
+              const SizedBox(
+                height: 4.0,
+              ),
+              const Text(
+                "UI/UX Designer at UXX Store",
+                style: TextStyle(
+                  fontSize: 14.0,
+                ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+
+              // list_tile_row
+              const ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text("OTHER INFORMATION"),
+              ),
+
+              for (var item in controller.menuItems)
+                //bisa pakai listviewbuilder
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(item["label"]),
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    size: 24.0,
+                  ),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => (item["view"])),
+                  ),
+                ),
             ],
           ),
         ),
