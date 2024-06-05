@@ -228,7 +228,16 @@ class DashboardView extends StatefulWidget {
                     itemBuilder: (BuildContext context, int index) {
                       var item = controller.products[
                           index]; // KEDUA masukan ini konsumsi controler
-                      return Container(
+                      return InkWell(
+                        // umutk modul product detail container ganti InkWell
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProductDetailView(
+                                    item:
+                                        item, // DISINI BERHUBUNGAN LANGSUNG DGN ProductDetailView DI MAP, AGAR BISA DITERUSKAN KEHALAMAN BERIKUT NYA
+                                  )),
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment
                               .start, // crossAxisAlignment start
