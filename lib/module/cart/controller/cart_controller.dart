@@ -108,4 +108,10 @@ class CartController extends State<CartView> {
     }
     return total;
   }
+
+  bool gridMode = false;
+  updateMode() {
+    gridMode = !gridMode;
+    setState(() {});
+  }
 }

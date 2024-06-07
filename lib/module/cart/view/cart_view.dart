@@ -105,6 +105,17 @@ class CartView extends StatefulWidget {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  width: 6.0,
+                ),
+                IconButton(
+                  // method ketika di klik icon berubag menjadi gridmode
+                  onPressed: () => controller.updateMode(),
+                  icon: Icon(
+                    controller.gridMode ? Icons.grid_3x3 : Icons.list,
+                    size: 24.0,
+                  ),
+                ),
               ],
             ),
             const SizedBox(
@@ -112,111 +123,232 @@ class CartView extends StatefulWidget {
             ),
 
             // 4 add listview builder, hapus SingleChildScrollView agar bisa scrol dan serch nya diam diatas, tambahaakan Expanded(kursor focus ke ListView )
-            Expanded(
-              child: ListView.builder(
-                itemCount: controller.products
-                    .length, // 9.1 add controller.products.length unutk memunculkan data dari controler
-                physics: const ScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  var item =
-                      controller.products[index]; // 9.2 add ini dari controler
-                  // 5 change card menjadi row, add conimage didalam []
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 64.0,
-                        width: 64, // 6 add width
-                        // 7 add mb12
-                        margin: const EdgeInsets.only(
-                          bottom: 12.0,
-                        ),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              item["photo"], // 9.3 add ini item["photo"],
-                            ),
-                            fit: BoxFit.cover,
+            if (controller.gridMode == false)
+              Expanded(
+                child: ListView.builder(
+                  itemCount: controller.products
+                      .length, // 9.1 add controller.products.length unutk memunculkan data dari controler
+                  physics: const ScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = controller
+                        .products[index]; // 9.2 add ini dari controler
+                    // 5 change card menjadi row, add conimage didalam []
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 64.0,
+                          width: 64, // 6 add width
+                          // 7 add mb12
+                          margin: const EdgeInsets.only(
+                            bottom: 12.0,
                           ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(
-                              8.0,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                item["photo"], // 9.3 add ini item["photo"],
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(
+                                8.0,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 12.0,
-                      ),
-                      // 8 add textb
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        const SizedBox(
+                          width: 12.0,
+                        ),
+                        // 8 add textb
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                //    "${item["product_name"]}${item["product_name"]}",
+                                "${item["product_name"]}",
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                item["category"], // 9.3 add ini item["photo"],
+                                style: const TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              Text(
+                                "\$${item["price"]}",
+                                style: const TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Wrap(
                           children: [
-                            Text(
-                              //    "${item["product_name"]}${item["product_name"]}",
-                              "${item["product_name"]}",
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
+                            IconButton(
+                              onPressed: () => controller.increaseQty(item),
+                              icon: const Icon(
+                                MdiIcons.plusBox,
+                                size: 20,
                               ),
                             ),
-                            Text(
-                              item["category"], // 9.3 add ini item["photo"],
-                              style: const TextStyle(
-                                fontSize: 12.0,
+                            SizedBox(
+                              width: 20,
+                              height: 40,
+                              child: Center(
+                                child: Text(
+                                  "\$${item["qty"]}", // controler map 1
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
-                            Text(
-                              "\$${item["price"]}",
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
+                            IconButton(
+                              // add controler map 3 onPressed: () => controller.decreaseQty(item),
+                              onPressed: () => controller.decreaseQty(item),
+                              icon: const Icon(
+                                // controler map 2. ubah menjadi iccon button
+                                MdiIcons.minusBox,
+                                size: 20,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      Wrap(
+                      ],
+                    );
+                  },
+                ),
+              ),
+            // disini gridMode nya
+            if (controller.gridMode)
+              Expanded(
+                child: GridView.builder(
+                  padding: EdgeInsets.zero,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 1.0 / 1.6,
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                  ),
+                  itemCount: controller.products.length,
+                  physics: const ScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = controller.products[index];
+                    return Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          IconButton(
-                            onPressed: () => controller.increaseQty(item),
-                            icon: const Icon(
-                              MdiIcons.plusBox,
-                              size: 20,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                            height: 40,
-                            child: Center(
-                              child: Text(
-                                "${item["qty"]}", // controler map 1
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Container(
+                              height: 160.0,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    item["photo"],
+                                  ),
+                                  fit: BoxFit.cover,
                                 ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(
+                                    8.0,
+                                  ),
+                                ),
+                              ),
+                              // add child stack, lalu children[circle_icon]
+                              child: const Stack(
+                                children: [
+                                  // add dibungkus Positioned, alt+c diubah kePositioned
+                                  Positioned(
+                                    right: 8,
+                                    top: 8,
+                                    child: CircleAvatar(
+                                      radius: 16,
+                                      backgroundColor: Colors.white,
+                                      child: Icon(
+                                        Icons.favorite,
+                                        color: Colors.grey,
+                                        size: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          IconButton(
-                            // add controler map 3 onPressed: () => controller.decreaseQty(item),
-                            onPressed: () => controller.decreaseQty(item),
-                            icon: const Icon(
-                              // controler map 2. ubah menjadi iccon button
-                              MdiIcons.minusBox,
-                              size: 20,
+                          const SizedBox(
+                            height: 4.0,
+                          ),
+                          Text(
+                            item["product_name"],
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
                             ),
+                          ),
+                          Text(
+                            item["category"],
+                            style: const TextStyle(
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          Text(
+                            "\$${item["price"]}",
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                onPressed: () => controller.increaseQty(item),
+                                icon: const Icon(
+                                  MdiIcons.plusBox,
+                                  size: 20,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                                height: 40,
+                                child: Center(
+                                  child: Text(
+                                    "${item["qty"]}", // controler map 1
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              IconButton(
+                                // add controler map 3 onPressed: () => controller.decreaseQty(item),
+                                onPressed: () => controller.decreaseQty(item),
+                                icon: const Icon(
+                                  // controler map 2. ubah menjadi iccon button
+                                  MdiIcons.minusBox,
+                                  size: 20,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
           ],
         ),
       ),
