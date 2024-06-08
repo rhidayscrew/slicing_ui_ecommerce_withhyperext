@@ -248,7 +248,13 @@ class CartView extends StatefulWidget {
             Container(
               height: 12.0,
             ),
-            QButton(label: "CheckOut", onPressed: () {})
+            QButton(
+                label: "CheckOut",
+                onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CheckoutView()),
+                    )),
           ],
         ),
       ),
