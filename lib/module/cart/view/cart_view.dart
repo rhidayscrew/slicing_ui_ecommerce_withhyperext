@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:slicing_ui_one/core.dart';
+import 'package:slicing_ui_one/module/cart/widget/cart_product_grid_item.dart';
+import 'package:slicing_ui_one/module/cart/widget/cart_product_list_item.dart';
 import '../controller/cart_controller.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -133,99 +135,8 @@ class CartView extends StatefulWidget {
                     var item = controller
                         .products[index]; // 9.2 add ini dari controler
                     // 5 change card menjadi row, add conimage didalam []
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 64.0,
-                          width: 64, // 6 add width
-                          // 7 add mb12
-                          margin: const EdgeInsets.only(
-                            bottom: 12.0,
-                          ),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                item["photo"], // 9.3 add ini item["photo"],
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(
-                                8.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 12.0,
-                        ),
-                        // 8 add textb
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                //    "${item["product_name"]}${item["product_name"]}",
-                                "${item["product_name"]}",
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                item["category"], // 9.3 add ini item["photo"],
-                                style: const TextStyle(
-                                  fontSize: 12.0,
-                                ),
-                              ),
-                              Text(
-                                "\$${item["price"]}",
-                                style: const TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Wrap(
-                          children: [
-                            IconButton(
-                              onPressed: () => controller.increaseQty(item),
-                              icon: const Icon(
-                                MdiIcons.plusBox,
-                                size: 20,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 20,
-                              height: 40,
-                              child: Center(
-                                child: Text(
-                                  "\$${item["qty"]}", // controler map 1
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            IconButton(
-                              // add controler map 3 onPressed: () => controller.decreaseQty(item),
-                              onPressed: () => controller.decreaseQty(item),
-                              icon: const Icon(
-                                // controler map 2. ubah menjadi iccon button
-                                MdiIcons.minusBox,
-                                size: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
+                    return CartProductListItem(
+                        item: item); // ada dari cart_product_list_item
                   },
                 ),
               ),
@@ -244,108 +155,8 @@ class CartView extends StatefulWidget {
                   physics: const ScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     var item = controller.products[index];
-                    return Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              height: 160.0,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    item["photo"],
-                                  ),
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(
-                                    8.0,
-                                  ),
-                                ),
-                              ),
-                              // add child stack, lalu children[circle_icon]
-                              child: const Stack(
-                                children: [
-                                  // add dibungkus Positioned, alt+c diubah kePositioned
-                                  Positioned(
-                                    right: 8,
-                                    top: 8,
-                                    child: CircleAvatar(
-                                      radius: 16,
-                                      backgroundColor: Colors.white,
-                                      child: Icon(
-                                        Icons.favorite,
-                                        color: Colors.grey,
-                                        size: 16,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 4.0,
-                          ),
-                          Text(
-                            item["product_name"],
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            item["category"],
-                            style: const TextStyle(
-                              fontSize: 12.0,
-                            ),
-                          ),
-                          Text(
-                            "\$${item["price"]}",
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                onPressed: () => controller.increaseQty(item),
-                                icon: const Icon(
-                                  MdiIcons.plusBox,
-                                  size: 20,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 20,
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    "${item["qty"]}", // controler map 1
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                // add controler map 3 onPressed: () => controller.decreaseQty(item),
-                                onPressed: () => controller.decreaseQty(item),
-                                icon: const Icon(
-                                  // controler map 2. ubah menjadi iccon button
-                                  MdiIcons.minusBox,
-                                  size: 20,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
+                    return CartProductGridItem(
+                        item: item); // ada dari cart_product_grid_item
                   },
                 ),
               ),
