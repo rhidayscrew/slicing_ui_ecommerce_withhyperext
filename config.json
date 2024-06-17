@@ -11,7 +11,9 @@
         "profile",
         "product_list",
         "product_detail",
-        "edit_profile"
+        "edit_profile",
+        "cart",
+        "checkout"
     ],
     "module_directory_name": "module",
     "experimental_mode": false,

@@ -32,7 +32,26 @@ class DashboardView extends StatefulWidget {
             ),
           ],
         ),
-        actions: const [],
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: InkWell(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CartView()),
+              ),
+              child: const Badge(
+                label: Text(
+                  "4",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                child: Icon(Icons.shopping_cart),
+              ),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         //padding: EdgeInsets.all(10.0), pengen ada jarak paading nya di setipa sisi edit ini
