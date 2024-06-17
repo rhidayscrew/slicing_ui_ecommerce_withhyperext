@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:slicing_ui_one/core.dart';
 
 class OrderListShippedItem extends StatelessWidget {
   final List<Map<String, dynamic>> items; // add
@@ -19,68 +20,75 @@ class OrderListShippedItem extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         var item = items[index];
 
-        return Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                width: 1.0,
-                color: Colors.grey[300]!,
+        return InkWell(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => OrderDetailView(item: item)),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  width: 1.0,
+                  color: Colors.grey[300]!,
+                ),
               ),
             ),
-          ),
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "#${item["id"]}",
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "#${item["id"]}",
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 4.0,
-                    ),
-                    Text(
-                      DateFormat("dd MMM y kk:mm:ss")
-                          .format(DateTime.parse(item["created_at"])),
-                      style: const TextStyle(
-                        fontSize: 12.0,
+                      const SizedBox(
+                        height: 4.0,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 4.0,
-                    ),
-                    Text(
-                      "${item["payment_method"]["name"]}",
-                      style: const TextStyle(
-                        fontSize: 12.0,
+                      Text(
+                        DateFormat("dd MMM y kk:mm:ss")
+                            .format(DateTime.parse(item["created_at"])),
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 4.0,
-                    ),
-                    Text(
-                      "${item["courier"]["name"]}",
-                      style: const TextStyle(
-                        fontSize: 12.0,
+                      const SizedBox(
+                        height: 4.0,
                       ),
-                    ),
-                  ],
+                      Text(
+                        "${item["payment_method"]["name"]}",
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 4.0,
+                      ),
+                      Text(
+                        "${item["courier"]["name"]}",
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const Text(
-                "\$140",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
+                const Text(
+                  "\$140",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
