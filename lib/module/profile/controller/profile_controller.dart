@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:slicing_ui_one/core.dart';
 import '../view/profile_view.dart';
@@ -14,9 +13,7 @@ class ProfileController extends State<ProfileView> {
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
   }
 
-  void onReady() {
-    
-  }
+  void onReady() {}
 
   @override
   void dispose() {
@@ -25,5 +22,39 @@ class ProfileController extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
+
+  List menuItems = [
+    {
+      "label": "Edit Profile",
+      "view": const EditProfileView(),
+    },
+    {
+      "label": "Change Password",
+      "view": const ChangePasswordView(),
+    },
+    {
+      "label": "Settings",
+      "view": const EditProfileView(),
+    },
+    {
+      "label": "Help",
+      "view": const EditProfileView(),
+    },
+    {
+      "label": "FAQ",
+      "view": const EditProfileView(),
+    },
+    {
+      "label": "Privacy Polcy",
+      "view": const EditProfileView(),
+    },
+    {
+      "label": "TOS",
+      "view": const EditProfileView(),
+    },
+    {
+      "label": "Log out",
+      "view": const EditProfileView(),
+    },
+  ];
 }
-    
