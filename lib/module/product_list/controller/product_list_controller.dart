@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:slicing_ui_one/core.dart';
-import '../view/dashboard_view.dart';
+import '../view/product_list_view.dart';
 
-class DashboardController extends State<DashboardView> {
-  static late DashboardController instance;
-  late DashboardView view;
+class ProductListController extends State<ProductListView> {
+  static late ProductListController instance;
+  late ProductListView view;
 
   @override
   void initState() {
@@ -22,11 +22,8 @@ class DashboardController extends State<DashboardView> {
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
-  // add list nya
-  List categories = ["shoes", "Shirt", "Watches", "Jeans"];
-
-//dumy_product_list
   List<Map<String, dynamic>> products = [
+    // dumy product list
     {
       "id": 1,
       "photo":
