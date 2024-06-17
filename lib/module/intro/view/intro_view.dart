@@ -61,6 +61,7 @@ class IntroView extends StatefulWidget {
                             viewportFraction: 1.0,
                             onPageChanged: (index, reason) {
                               controller.currentIndex = index;
+                              // ignore: invalid_use_of_protected_member
                               controller.setState(() {});
                             },
                           ),
